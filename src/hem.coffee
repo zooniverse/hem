@@ -5,6 +5,7 @@ connect   = require('connect')
 httpProxy = require('http-proxy')
 http      = require('http')
 compilers = require('./compilers')
+io        = require('socket.io')
 Package   = require('./package')
 
 # ------- Commandline arguments
@@ -111,12 +112,12 @@ class Hem
         throw new Error("Invalid route configuration for #{url}")
 
     # start server
-    http.createServer(app).listen(@options.server.port, @options.server.host)
+    server = http.createServer(app).listen(@options.server.port, @options.server.host)
     
     # TODO: live_reload business!
     #if --live arg then
-      #io = require('socket.io').listen(80)
-      #registerSocketEvents(io)
+      #io.listen(server)
+      #registerSocketEvents()
 
   clean: () ->
     targets = argv.targets
@@ -231,7 +232,7 @@ class Hem
         bestMatch.dir = dir
     bestMatch.url
     
-  #registerSocketEvents: (io) ->
+  #registerSocketEvents: () ->
     #io.sockets.on 'connection', (socket) ->
     #  socket.emit 'news', { hello: 'world' }
     #  socket.on 'my other event', (data) ->

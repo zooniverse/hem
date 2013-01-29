@@ -112,6 +112,10 @@ class Hem
 
     # start server
     http.createServer(app).listen(@options.server.port, @options.server.host)
+    
+    #if --live arg then
+      #io = require('socket.io').listen(80)
+      #registerSocketEvents(io)
 
   clean: () ->
     targets = argv.targets
@@ -225,6 +229,12 @@ class Hem
         bestMatch.url = url + pkg.target.slice(dir.length)
         bestMatch.dir = dir
     bestMatch.url
+    
+  #registerSocketEvents: (io) ->
+    #io.sockets.on 'connection', (socket) ->
+    #  socket.emit 'news', { hello: 'world' }
+    #  socket.on 'my other event', (data) ->
+    #    console.log(data)
 
 module.exports = Hem
 

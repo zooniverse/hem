@@ -113,6 +113,7 @@ class Hem
     # start server
     http.createServer(app).listen(@options.server.port, @options.server.host)
     
+    # TODO: live_reload business!
     #if --live arg then
       #io = require('socket.io').listen(80)
       #registerSocketEvents(io)
